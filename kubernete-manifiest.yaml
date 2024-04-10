@@ -1,0 +1,83 @@
+#Services
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-portsadapterbackendimplementation
+spec:
+  ports:
+  - port: 80
+    name: http
+  selector:
+    app: api-portsadapterbackendimplementation
+  type: ClusterIP
+---
+#Api
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-portsadapterbackendimplementation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-portsadapterbackendimplementation
+  template:
+    metadata:
+      labels:
+        app: api-portsadapterbackendimplementation
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: api-portsadapterbackendimplementation
+        image: fullhendrix/portsadapterbackendimplementation
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
+#Database
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database-portsadapterbackendimplementation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database-portsadapterbackendimplementation
+  template:
+    metadata:
+      labels:
+        app: database-portsadapterbackendimplementation
+    spec:
+      nodeSelector:
+        "beta.kubernetes.io/os": linux
+      containers:
+      - name: database-portsadapterbackendimplementation
+        image: fullhendrix/database
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 1433
+# #Ingress
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+  # name: ingress-DevopsModelImplementation
+  # annotations:
+    # kubernetes.io/ingress.class: "nginx"
+# spec:
+  # rules:
+  # - host: dev.enazul.com.pe
+    # http:
+      # paths:
+      # - backend: 
+          # service:
+            # name: enazul-web
+            # port:
+              # number: 80
+        # path: /
+        # pathType: Prefix
+  # tls:
+  # - hosts:
+    # - dev.enazul.com.pe
+    # secretName: enazulsecret-tls

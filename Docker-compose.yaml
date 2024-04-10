@@ -2,5 +2,13 @@ version: "3.9"
 services:
   sqlserver:
     image: database
+    build:
+     dockerfile: ./Database/dockerfile
     ports:
       - "1433:1433"
+  dddapi:
+    image: portsadapterbackendimplementation
+    build:
+     dockerfile: ../PortsAdapterBackendImplementation/dockerfile
+    ports:
+      - "8080:8080"
