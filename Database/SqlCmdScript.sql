@@ -6,7 +6,7 @@ USE [Operations]
 GO
 CREATE TABLE Product (
 	ProductCode	 	UniqueIdentifier PRIMARY KEY,
-	ProductName 	Varchar(200)
+	ProductName 	Varchar(200),
 	Price			Decimal(12,5),
 	TaxTypeCode		INT
 )
@@ -27,7 +27,10 @@ CREATE TABLE Sale (
 GO
 CREATE TABLE SaleDetail (
 	SaleDetailCode	UniqueIdentifier PRIMARY KEY,
-	SaleCode	 	UniqueIdentifier,	
+	SaleCode	 	UniqueIdentifier,
+	ProductCode	 	UniqueIdentifier,
+	Price 			Decimal(12,5),
+	Quantity 		int,	
 	Subtotal		Decimal(12,5),
 	TaxAmount		Decimal(12,5),
 	Total			Decimal(12,5)
@@ -43,7 +46,10 @@ CREATE TABLE Purchase (
 GO
 CREATE TABLE PurchaseDetail (
 	PurchaseDetailCode	UniqueIdentifier PRIMARY KEY,
+	ProductCode	 	UniqueIdentifier,
 	PurchaseCode	 	UniqueIdentifier,	
+	Price 			Decimal(12,5),
+	Quantity 			int,
 	Subtotal			Decimal(12,5),
 	TaxAmount			Decimal(12,5),
 	Total				Decimal(12,5)
@@ -57,6 +63,7 @@ CREATE TABLE ProductStock (
 GO
 CREATE TABLE Kardex (
 	KardexCode		UniqueIdentifier PRIMARY KEY,
+	KardexDate		Datetime,
 	ProductCode	 	UniqueIdentifier,
 	InitialStock	Int,
 	Quantity		Int,
