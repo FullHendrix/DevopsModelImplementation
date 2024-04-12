@@ -5,7 +5,7 @@ externalServices:
     host: https://logs-prod-006.grafana.net
     basicAuth:
       username: "862329"
-      password: glc_eyJvIjoiMTA5ODYzOSIsIm4iOiJzdGFjay05MDQ1NDgtaW50ZWdyYXRpb24tZGV2b3BzaW1wbGVtZW50YXRpb24tZGV2b3BzaW1wbGVtZW50YXRpb24iLCJrIjoiTlVWNVg5ODJYUEZsN2o4M082OEFySTFKIiwibSI6eyJyIjoicHJvZC11cy1lYXN0LTAifX0=
+      password: yourpassword
 metrics:
   enabled: false
   cost:
