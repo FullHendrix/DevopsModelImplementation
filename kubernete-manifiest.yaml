@@ -10,43 +10,43 @@
   # selector:
     # app: api-portsadapterbackendimplementation
   # type: ClusterIP
-# ---
+---
 # Api
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-  # name: api-portsadapterbackendimplementation
-# spec:
-  # replicas: 1
-  # selector:
-    # matchLabels:
-      # app: api-portsadapterbackendimplementation
-  # template:
-    # metadata:
-      # labels:
-        # app: api-portsadapterbackendimplementation
-    # spec:
-      # nodeSelector:
-        # "beta.kubernetes.io/os": linux
-      # containers:
-      # - name: api-portsadapterbackendimplementation
-        # image: fullhendrix/portsadapterbackendimplementation
-        # imagePullPolicy: Always
-        # ports:
-        # - containerPort: 8080
-# ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-portsadapterbackendimplementation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database-portsadapterbackendimplementation
+  template:
+    metadata:
+      labels:
+        app: database-portsadapterbackendimplementation
+    spec:
+      containers:
+      - name: api-portsadapterbackendimplementation
+        image: fullhendrix/portsadapterbackendimplementation
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
 #Database
-# apiVersion: v1
-# kind: Service
-# metadata:
-  # name: database-portsadapterbackendimplementation
-# spec:
-  # ports:
-  # - port: 1433
-    # name: http
-  # selector:
-    # app: database-portsadapterbackendimplementation
-  # type: LoadBalancer
+apiVersion: v1
+kind: Service
+metadata:
+  name: database-portsadapterbackendimplementation
+spec:
+  ports:
+  - port: 1433
+    name: database
+  - port: 8080
+    name: api
+  selector:
+    app: database-portsadapterbackendimplementation
+  type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
